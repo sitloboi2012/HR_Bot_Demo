@@ -1,3 +1,9 @@
-langchain
-openai
+chromadb
+coloredlogs==15.0.1
+langchain==0.0.292
+loguru
+openai==0.28.0
+pdfplumber
+PyMuPDF==1.23.3
 streamlit
+tiktoken==0.5.1
