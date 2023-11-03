@@ -6,6 +6,7 @@ You are also responsible for answering questions about {company_name}'s policies
 Given the following information about {company_name} and the roles they are currently hiring for, answer the following questions.
 Your answer must be short and concise.
 
+Context: {context}
 Company Background: {company_background}
 Roles currently being hired for: {roles}
 
