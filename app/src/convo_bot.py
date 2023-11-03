@@ -3,8 +3,11 @@ from __future__ import annotations
 from typing import Any
 
 from langchain.chat_models import ChatOpenAI
-from langchain.chains import RetrievalQA
-from app.constant import LLM_MODEL, RETRIEVAL_PROMPT
+from langchain.prompts import ChatPromptTemplate
+from app.constant import LLM_MODEL
+from app.model.prompt_template import RETRIEVAL_TEMPLATE
+from langchain.schema.runnable import RunnablePassthrough
+from langchain.schema.output_parser import StrOutputParser
 
 
 class HRBot:
@@ -15,12 +18,7 @@ class HRBot:
             search_type="similarity_score_threshold",
             search_kwargs={"score_threshold": 0.5, "k": 2, "fetch_k": 10},
         )
-        self.qa_chain = RetrievalQA.from_chain_type(
-            LLM_MODEL,
-            retriever=self.retriever,
-            chain_type_kwargs={"prompt": RETRIEVAL_PROMPT},
-            return_source_documents=True,
-        )
+        self.retrieval_prompt = ChatPromptTemplate.from_template(RETRIEVAL_TEMPLATE)
 
     def embed_query(self, query):
         return self.embedding_model.embed_query(query)
@@ -28,5 +26,5 @@ class HRBot:
     def search_docs(self, query_input, embedding_func):
         return self.vector_db.similarity_search_by_vector(embedding_func.embed_query(query_input), k=2)
 
-    def get_response(self, query):
-        return self.qa_chain({"question": query, "company_name": "SmartDev", "company_background": "Beautiful and nice", "roles": "Software Engineer", "context": None})
+    def init_chain(self, query_input):
+        pass

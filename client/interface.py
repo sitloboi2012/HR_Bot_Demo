@@ -8,7 +8,7 @@ import streamlit as st
 # from client.partials import material_sidebar
 from app.src.document_loader import PDFDocumentLoader, WordDocumentLoader
 from app.src.convo_bot import HRBot
-from app.constant import LLM_MODEL, LANGCHAIN_VECTOR_DB
+from app.constant import EMBEDDING_FUNC, LLM_MODEL, LANGCHAIN_VECTOR_DB
 
 LOADER_FUNC = {
     ".pdf": PDFDocumentLoader(text_splitter=None),
@@ -43,3 +43,6 @@ def main_interface():
         for data in uploaded_file:
             bytes_data, data_name, extension = data.getvalue(), data.name, os.path.splitext(data.name)[1]
             process_document(bytes_data, data_name, extension)
+
+        query = st.text_input("Enter your query here: ")
+        st.write(BOT.search_docs(query, EMBEDDING_FUNC))

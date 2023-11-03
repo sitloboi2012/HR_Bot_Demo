@@ -11,7 +11,7 @@ from langchain.vectorstores import Chroma
 LLM_MODEL = ChatOpenAI(
     model_name="gpt-3.5-turbo-16k",
     temperature=0.2,
-    openai_api_key="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",
+    openai_api_key=st.secrets["OPENAI_API_KEY"],
     max_tokens=8000,
     frequency_penalty=0.5,
     presence_penalty=0.5,
@@ -20,7 +20,7 @@ LLM_MODEL = ChatOpenAI(
 
 RETRIEVAL_PROMPT = PromptTemplate(
     template=RETRIEVAL_TEMPLATE,
-    input_variables=["company_name", "company_background", "roles", "question", "context"],
+    input_variables=["company_name", "role", "question"],
 )
 
 EMBEDDING_FUNC = OpenAIEmbeddings(
