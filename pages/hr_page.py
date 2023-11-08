@@ -37,12 +37,16 @@ def visualize_all_document():
     document_list = {i["filename"] for i in current_db_info["metadatas"]}
 
     st.write(f"- There are __{len(current_db_info['ids'])} documents__ in the database.")
-    st.markdown(
-        f"""
+
+    if len(document_list) == 0:
+        st.markdown("- There is no document in the database")
+    else:
+        st.markdown(
+            f"""
                 - Name of document that is uploaded:
                 __{document_list}__
                 """
-    )
+        )
     # st.write(LANGCHAIN_VECTOR_DB.get())
 
 
@@ -59,8 +63,15 @@ def main_interface():
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
 
-    uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf", "docx", "doc"], accept_multiple_files=True)
+    uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf", "docx", "doc"], accept_multiple_files=True, label_visibility="collapsed")
     if uploaded_file is not None:
+        st.markdown(
+            """
+        <style>
+            .uploadedFile {display: none}
+        <style>""",
+            unsafe_allow_html=True,
+        )
         for data in uploaded_file:
             bytes_data, data_name, extension = data.getvalue(), data.name, os.path.splitext(data.name)[1]
             process_document(bytes_data, data_name, extension)
