@@ -23,7 +23,7 @@ LLM_MODEL = ChatOpenAI(
 
 RETRIEVAL_PROMPT = PromptTemplate(
     template=RETRIEVAL_TEMPLATE_2,
-    input_variables=["hiring_role", "question"],
+    input_variables=["context", "question"],
 )
 
 EMBEDDING_FUNC = OpenAIEmbeddings(
