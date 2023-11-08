@@ -8,7 +8,7 @@ import streamlit as st
 # from client.partials import material_sidebar
 from app.src.document_loader import PDFDocumentLoader, WordDocumentLoader
 from app.src.convo_bot import HRBot
-from app.constant import EMBEDDING_FUNC, LLM_MODEL, LANGCHAIN_VECTOR_DB
+from app.constant import LLM_MODEL, LANGCHAIN_VECTOR_DB
 
 LOADER_FUNC = {
     ".pdf": PDFDocumentLoader(text_splitter=None),
@@ -25,12 +25,33 @@ def process_document(file_content: bytes, file_name: str, file_extension: str) -
 
     docs = LOADER_FUNC[file_extension].load_document(file_content, file_name)
     LOADER_FUNC[file_extension].upload_to_db(docs)
-
+    try:
+        st.success(f"Successfully add {file_name} on to the database")
+    except Exception:
+        st.error(f"Cannot upload {file_name} to the database")
     return True
 
 
+def visualize_all_document():
+    current_db_info = LANGCHAIN_VECTOR_DB.get()
+    document_list = {i["filename"] for i in current_db_info["metadatas"]}
+
+    st.write(f"- There are __{len(current_db_info['ids'])} documents__ in the database.")
+    st.markdown(
+        f"""
+                - Name of document that is uploaded:
+                __{document_list}__
+                """
+    )
+    # st.write(LANGCHAIN_VECTOR_DB.get())
+
+
+def search_docs(query_input):
+    return LANGCHAIN_VECTOR_DB.similarity_search(query_input, k=2)
+
+
 def main_interface():
-    st.title("HR ChatBot")
+    st.title("HR Page")
 
     if "openai_model" not in st.session_state:
         st.session_state["openai_model"] = "gpt-3.5-turbo-16k"
@@ -44,5 +65,11 @@ def main_interface():
             bytes_data, data_name, extension = data.getvalue(), data.name, os.path.splitext(data.name)[1]
             process_document(bytes_data, data_name, extension)
 
-        query = st.text_input("Enter your query here: ")
-        st.write(BOT.search_docs(query, EMBEDDING_FUNC))
+    with st.form(key="search_docs_form"):
+        query = st.text_input("Search for a document: ")
+        if search := st.form_submit_button("Seach"):  # noqa: F841
+            st.write(search_docs(query))
+    visualize_all_document()
+
+
+main_interface()
