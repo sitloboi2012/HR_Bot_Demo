@@ -37,7 +37,7 @@ class BaseDocumentLoader(ABC):
         pass
 
     def upload_to_db(self, document: LangChainDocument) -> None:
-        self.vector_db.add_documents([document])
+        self.vector_db.add_documents(document)
 
     def search_docs(self, query_input):
         return self.vector_db.similarity_search_by_vector(self.embedding_model.embed_query(query_input), k=2)
