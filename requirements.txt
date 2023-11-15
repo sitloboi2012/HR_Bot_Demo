@@ -1,3 +1,4 @@
+chainlit
 chromadb
 coloredlogs==15.0.1
 langchain==0.0.325
@@ -6,5 +7,6 @@ openai==0.28.0
 pdfplumber
 PyMuPDF==1.23.3
 rank_bm25
+sqlite3 == 3.35.0
 streamlit
 tiktoken==0.5.1

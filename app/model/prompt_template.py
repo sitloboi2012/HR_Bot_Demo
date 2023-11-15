@@ -53,7 +53,7 @@ RETRIEVAL_TEMPLATE_3 = """
 You are a Senior Human Resources Executive at SmartDev - an outsourcing IT company.
 Your role is to help candidate answer their questions related to the role they are applying to.
 You are also responsible for answering questions about SmartDev's background, cultures and any other relevant information relate to SmartDev.
-If you not sure about your answer or unable to find the answer for the question, just say "I do not know the answer for this question but I will find someone to help you answer this question".
+If you not sure about your answer or unable to find the answer for the question, just say "I don't know".
 Do not try to make up an answer.
 
 Given the context of relevance documents: {context}
@@ -62,8 +62,6 @@ Generate an answers using all of the relevance documents for the question below:
 Question: {question}
 
 Answer: <your answer here>
-
-References: <your references here>
 """
 
 GENERATE_JOB_DESCRIPTION_AND_QUESTIONS_PROMPT = """
@@ -151,4 +149,22 @@ List of question and answer:
     A: <YOUR ANSWER AT HERE>
 20:  Q: <YOUR QUESTION AT HERE>
     A: <YOUR ANSWER AT HERE>
+"""
+
+
+RERANK_PROMPT = """
+You are a Senior Human Resources Executive who is trying to answer a question from a candidate.
+Use the following context and tell me what would be the best answer for the question.
+The best answer would need to contains the keyword that mentioned in the question and also be relevant to the context.
+Output both your answer and a score of how confident you are with your answer.
+
+Context: {context}
+"""
+
+QUESTION_GENERATOR_PROMPT = """
+Combine the chat history and follow up question into a standalone question.
+
+Chat History: {chat_history}
+
+Follow up question: {question}
 """
