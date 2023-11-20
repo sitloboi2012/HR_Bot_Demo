@@ -1,14 +1,25 @@
 # Welcome to SmarHR! 🚀🤖
 
-Hi there, Developer! 👋 We're excited to have you on board. Chainlit is a powerful tool designed to help you prototype, debug and share applications built on top of LLMs.
+SmarHR - SmartDev HR is a HR assistant bot that support HR team managing communication with candidate through using LLM. SmarHR aims to bring a professional vibe 😊 to the chat room and helps candidate in answering question that related to the role that they are interested in 💬.
 
 ## Useful Links 🔗
 
-- **Documentation:** Get started with our comprehensive [Chainlit Documentation](https://docs.chainlit.io) 📚
-- **Discord Community:** Join our friendly [Chainlit Discord](https://discord.gg/k73SQ3FyUh) to ask questions, share your projects, and connect with other developers! 💬
+- **Project Requirement:** A comprehensive overview requirement of SmarHR [AI Chatbot](https://verysellgroup-my.sharepoint.com/:w:/g/personal/soan_duongthi_verysell_ai/ERGVdcA7GltDi3uOV7LOea4B6GeH6Q2FsZYqbOyrzZv7Ug?e=SXbYcS) 📚
 
 We can't wait to see what you create with Chainlit! Happy coding! 💻😊
 
-## Welcome screen
+## What can SmarHR do
 
-To modify the welcome screen, edit the `chainlit.md` file at the root of your project. If you do not want a welcome screen, just leave this file empty.
+For now the capability of SmarHR is quite limited which include:
+
+- Answer question that related to position or job description that candidate ask.
+- Support Vietnamese and English as the main language.
+- Integrated with Linkedln to support candidate.
+
+But in the future, SmarHR would also support:
+
+- Visually answering with chart, graph and images
+- Accept CV from candidate upload through SmarHR
+- Analyze and attached CV parsing inside SmarHR to do the parsing straightaway.
+- Expand the integration to other platform.
+- Expand the list of supported language

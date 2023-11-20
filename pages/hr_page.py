@@ -6,7 +6,7 @@ import streamlit as st
 
 from app.src.document_loader import PDFDocumentLoader, WordDocumentLoader
 from app.src.convo_bot import HRBot
-from app.constant import LLM_MODEL, LANGCHAIN_VECTOR_DB
+from app.constant import LLM_MODEL_3, LANGCHAIN_VECTOR_DB
 from app.src.utils import chunking_job_description, convert_to_document
 
 LOADER_FUNC = {
@@ -15,7 +15,7 @@ LOADER_FUNC = {
     ".doc": WordDocumentLoader(text_splitter=None),
 }
 
-BOT = HRBot(LANGCHAIN_VECTOR_DB, llm_model=LLM_MODEL)
+BOT = HRBot(LANGCHAIN_VECTOR_DB, llm_model=LLM_MODEL_3)
 
 
 VECTORDB_RETRIEVER = LANGCHAIN_VECTOR_DB.as_retriever(
@@ -29,9 +29,9 @@ def process_document(file_content: bytes, file_name: str, file_extension: str) -
         raise ValueError(f"{file_extension} is not supported")
 
     docs = LOADER_FUNC[file_extension].load_document(file_content, file_name)
-    raw_result = chunking_job_description(docs)
-    clean_docs = convert_to_document(raw_result, file_name, file_name)
-    LOADER_FUNC[file_extension].upload_to_db(clean_docs)
+    # raw_result = chunking_job_description(docs)
+    # clean_docs = convert_to_document(raw_result, file_name, file_name)
+    LOADER_FUNC[file_extension].upload_to_db([docs])
     try:
         st.success(f"Successfully add {file_name} on to the database")
     except Exception:
@@ -90,7 +90,7 @@ def main_interface():
         query = st.text_input("Search for a document: ")
         if search := st.form_submit_button("Seach"):  # noqa: F841
             st.write(search_docs(query, LANGCHAIN_VECTOR_DB))
-    visualize_all_document()
+    # visualize_all_document()
 
 
 main_interface()

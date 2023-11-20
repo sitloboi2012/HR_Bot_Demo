@@ -21,7 +21,7 @@ class AnswerConversationBufferMemory(ConversationBufferMemory):
 
 
 EMBEDDING_FUNC = OpenAIEmbeddings(
-    openai_api_key="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",
+    openai_api_key="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",
     model_name="text-embedding-ada-002",
 )
 
@@ -34,7 +34,7 @@ LANGCHAIN_VECTOR_DB = Chroma(
 LLM_MODEL_4 = ChatOpenAI(
     model_name="gpt-4-1106-preview",
     temperature=0.2,
-    openai_api_key="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",
+    openai_api_key="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",
     # frequency_penalty=0.5,
     # presence_penalty=0.5,
     streaming=True,
